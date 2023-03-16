@@ -22,11 +22,44 @@ posled <- 1:20
 print("последовательность от 1 до 20")
 print(posled)
 
+# Создать вектор случайных значений
+print("Случайный вектор: ")
+rand_vec <- runif(n= 10, min= -5 , max= 15 )
+print(rand_vec)
+
+# Вывести больше 1 но меньше 10
+print("В диапозоне от 1 до 10")
+print(rand_vec[rand_vec >1 & rand_vec<10])
+paste("Максимум: ",max(rand_vec))
+paste("Минимум:", min(rand_vec))
+
+# Создание графиика синус x2
+sin_func <- function(x){
+    return (5*sin(x^2))
+}
+x <- seq(-10, 10, 0.1)
+paste(sin_func(x))
+plot(x, sin_func(x), "l", col = "dark red")
+
+
+# Построить трехмерный график поверхности
+xs <- seq(-1, 1, length= 20)
+ys <- seq(-1, 1, length= 20)
+cone <- function(x, y)
+{
+sqrt(x^2+y^2)
+}
+z <- outer(xs, ys, cone)
+persp(xs, ys, z, main="Perspective Plot of a Cone", zlab = "Height", theta = 60, phi = 15, col = "springgreen", shade = 0.5, ticktype='detailed', nticks=3)
+
+
+
 # Создание матрицы
-mat <- matrix(0:99, 10, 10)
+mat <- matrix(1:100, 10, 10)
 print("матрица 10 на 10")
 print(mat)
-
+paste("Число столбцов:", ncol(mat))
+paste("Число строк:", nrow(mat))
 # Создание массива от 1 до 30, разбитых на 3 части
 arr <- array(1:30, dim=c(1, 10, 3))  # 1-й аргумент -- кол-во строк, 2-й кол-во столбцов, 3-й кол-во частей
 print("Массив из 3-х частей по 10 элементов")
@@ -54,11 +87,17 @@ print(levels(sample_factor))
 # Внутрение факторы
 print(unclass(sample_factor))
 
+print(table(sample_factor))
+print("#######################")
+
+
 # Фрейм данных
-transport_df <- data.frame(Transport = c("Car","Bike","Airplane","Boat"),
-                           Type = c("sedan", "mountain bike", "jet", "canoe"),
-                           Year = c(2017, 2018, 2015, 2020),
-                           High_Speed = c(TRUE, FALSE, TRUE, FALSE))
+transport_df <- data.frame(Transport = c("Car","Bike","Airplane","Boat", "Rail", "Специальный", "Корабль"),
+                           Type = c("sedan", "mountain bike", "jet", "canoe", "Грузовой", "Пожарная машина", "Линкор"),
+                           Year = c(2017, 2018, 2015, 2020, 1917, 1990, 1980),
+                           High_Speed = c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE)
+
+                           )
 print(transport_df) # Печать фрейма данных
 
 
@@ -84,24 +123,26 @@ print(transport_df$Year)
 print("Четные строки")
 even_rows <- seq(2, nrow(transport_df), by = 2)  # Индексы чётных строк
 print(transport_df[even_rows, ]) # Вывод подмножества чётных строк фрейма данных
-
+print("Четные столбцы")
+even_cols <- seq(2, ncol(transport_df), by = 2)
+print(transport_df[,even_cols])
 
 # Вывести подмножество первых 5 строк фрейма, используя последовательность индексов
-df <- data.frame(col1 = c(1, 2, 3, 4, 5, 6),
-                 col2 = c("a", "b", "c", "d", "e", "f"),
-                 col3 = c(TRUE, FALSE, TRUE, TRUE, FALSE, TRUE))
-print("Новый датафрейм")
-print(df)
-print("Вывод подмножества из первых 5-и строк")
-print(df[1:5, ])
+# df <- data.frame(col1 = c(1, 2, 3, 4, 5, 6),
+#                  col2 = c("a", "b", "c", "d", "e", "f"),
+#                  col3 = c(TRUE, FALSE, TRUE, TRUE, FALSE, TRUE))
+# print("Новый датафрейм")
+# print(df)
+print("Вывод подмножества из первых 4-и строк")
+print(transport_df[1:4, ])
 
 
 # Вывести подмножество строк используя оператор равенства
 print("Вывести подмножество строк используя оператор равенства.")
-print(df[df$col3 == TRUE, ])
+print(transport_df[transport_df$High_Speed == TRUE, ])
 
 # Вывести подмножество строк, используя оператор соответсвия
 print("Вывести подмножество строк, используя оператор соответсвия ")
-print(df[df$col2 %in% c("a", "c"), ])
+print(transport_df[transport_df$Year %in% c(1990, 1980), ])
 
 
